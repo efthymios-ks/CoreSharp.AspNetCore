@@ -17,14 +17,15 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>C:\Users\Efthymios Koktsidis\source\repos\CoreSharp.MVC\CoreSharp.MVC\CoreSharp.MVC.xml</DocumentationFile>
+		<DocumentationFile>C:\Users\Efthymios\source\repos\efthymios-ks\CoreSharp.AspNetCore\CoreSharp.AspNetCore\CoreSharp.AspNetCore.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DocumentationFile>C:\Users\Efthymios Koktsidis\source\repos\CoreSharp.MVC\CoreSharp.MVC\CoreSharp.MVC.xml</DocumentationFile>
+		<DocumentationFile>C:\Users\Efthymios\source\repos\efthymios-ks\CoreSharp.AspNetCore\CoreSharp.AspNetCore\CoreSharp.AspNetCore.xml</DocumentationFile>
 	</PropertyGroup>
 
 	<ItemGroup>

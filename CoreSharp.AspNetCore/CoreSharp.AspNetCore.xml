@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreSharp.AspNetCore</name>
+    </assembly>
+    <members>
+        <member name="T:CoreSharp.Utilities.ProblemDetailsX">
+            <summary>
+            <see cref="T:Microsoft.AspNetCore.Mvc.ProblemDetails"/> utilities.
+            </summary>
+        </member>
+        <member name="M:CoreSharp.Utilities.ProblemDetailsX.Create(Microsoft.AspNetCore.Mvc.ControllerBase,System.Exception)">
+            <inheritdoc cref="M:CoreSharp.Utilities.ProblemDetailsX.Create(Microsoft.AspNetCore.Http.HttpContext)"/>
+        </member>
+        <member name="M:CoreSharp.Utilities.ProblemDetailsX.Create(Microsoft.AspNetCore.Http.HttpContext)">
+            <inheritdoc cref="M:CoreSharp.Utilities.ProblemDetailsX.Create(System.String,System.String,System.Net.HttpStatusCode,System.String,System.String)"/>
+        </member>
+        <member name="M:CoreSharp.Utilities.ProblemDetailsX.Create(System.Net.HttpStatusCode,System.String,System.String)">
+            <inheritdoc cref="M:CoreSharp.Utilities.ProblemDetailsX.Create(System.String,System.String,System.Net.HttpStatusCode,System.String,System.String)"/>
+        </member>
+        <member name="M:CoreSharp.Utilities.ProblemDetailsX.Create(System.String,System.String,System.Net.HttpStatusCode,System.String,System.String)">
+            <summary>
+            Create new <see cref="T:Microsoft.AspNetCore.Mvc.ProblemDetails"/>
+            with arguments validation for empty and null.
+            </summary>
+        </member>
+    </members>
+</doc>
