@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace CoreSharp.Utilities
 {
@@ -51,7 +52,7 @@ namespace CoreSharp.Utilities
             else
             {
                 title = exception.Message;
-                detail = exception.StackTrace;
+                detail = Regex.Replace(exception.StackTrace, @"\r\n?|\n", "\n");
             }
 
             return Create(type, title, httpStatusCode, detail, instance);

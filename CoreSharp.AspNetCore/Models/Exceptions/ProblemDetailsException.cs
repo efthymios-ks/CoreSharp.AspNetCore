@@ -11,8 +11,7 @@ namespace CoreSharp.MVC.Models.Exceptions
         //Constructors
         public ProblemDetailsException(HttpStatusCode httpStatusCode)
             : this(ProblemDetailsX.Create(httpStatusCode))
-        {
-        }
+            => ProblemDetails = null;
 
         public ProblemDetailsException(HttpContext httpContext)
             : this(ProblemDetailsX.Create(httpContext))
