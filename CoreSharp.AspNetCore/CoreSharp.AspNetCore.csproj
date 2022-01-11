@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<Authors>Efthymios Koktsidis</Authors>
+		<Company>Efthymios Koktsidis</Company>
+		<Product>Efthymios Koktsidis</Product>
+		<Description>Collection of extensions, utilities and interfaces for ASP.NET Core.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/efthymios-ks/CoreSharp.AspNetCore</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/efthymios-ks/CoreSharp.AspNetCore</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Utilities, Extensions, Interfaces, ASP.NET, Core, MVC</PackageTags>
+		<PackageId>CoreSharp.AspNetCore</PackageId>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageIconUrl />
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>C:\Users\Efthymios Koktsidis\source\repos\CoreSharp.MVC\CoreSharp.MVC\CoreSharp.MVC.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>C:\Users\Efthymios Koktsidis\source\repos\CoreSharp.MVC\CoreSharp.MVC\CoreSharp.MVC.xml</DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\.editorconfig" Link=".editorconfig" />
+		<None Include="..\icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CoreSharp" Version="1.7.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+
+</Project>
