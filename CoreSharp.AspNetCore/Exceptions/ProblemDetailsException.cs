@@ -1,10 +1,10 @@
-﻿using CoreSharp.Utilities;
+﻿using CoreSharp.AspNetCore.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
 
-namespace CoreSharp.MVC.Models.Exceptions
+namespace CoreSharp.AspNetCore.Exceptions
 {
     public class ProblemDetailsException : Exception
     {

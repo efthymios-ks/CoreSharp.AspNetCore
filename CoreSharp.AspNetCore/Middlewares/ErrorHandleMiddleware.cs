@@ -1,31 +1,31 @@
-﻿using CoreSharp.Extensions;
-using CoreSharp.Utilities;
+﻿using CoreSharp.AspNetCore.Extensions;
+using CoreSharp.AspNetCore.Middlewares.Abstracts;
+using CoreSharp.AspNetCore.Utilities;
+using CoreSharp.Extensions;
+using CoreSharp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CoreSharp.Models.Middlewares
+namespace CoreSharp.AspNetCore.Middlewares
 {
-    public class ExceptionHandleMiddleware
+    public class ErrorHandleMiddleware : HttpMiddlewareBase
     {
-        //Fields 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly RequestDelegate _next;
-
         //Constructors
-        public ExceptionHandleMiddleware(RequestDelegate next)
-            => _next = next;
+        public ErrorHandleMiddleware(RequestDelegate next)
+            : base(next)
+        {
+        }
 
         //Methods
-        public async Task InvokeAsync(HttpContext httpContext)
+        public override async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(httpContext);
+                await Next(httpContext);
             }
             catch (Exception exception) when (!httpContext.Response.HasStarted)
             {

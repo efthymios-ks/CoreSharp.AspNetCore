@@ -1,5 +1,6 @@
-﻿using CoreSharp.Extensions;
-using CoreSharp.MVC.Models.Exceptions;
+﻿using CoreSharp.AspNetCore.Exceptions;
+using CoreSharp.AspNetCore.Extensions;
+using CoreSharp.Utilities;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using System;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace CoreSharp.Utilities
+namespace CoreSharp.AspNetCore.Utilities
 {
     /// <summary>
     /// <see cref="ProblemDetails"/> utilities.
@@ -36,16 +37,13 @@ namespace CoreSharp.Utilities
             if (exception is ProblemDetailsException pde)
                 return pde.ProblemDetails;
 
-            //Else extract information
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var isProduction = string.Equals(environment, "Production", StringComparison.InvariantCultureIgnoreCase);
-
+            //Else extract information 
             var type = exception.GetType().Name;
             string title = null;
             var httpStatusCode = HttpStatusCodeX.FromException(exception);
             string detail;
             var instance = httpContext.Request.Path;
-            if (isProduction)
+            if (EnvironmentX.IsProduction())
             {
                 detail = exception.Message;
             }

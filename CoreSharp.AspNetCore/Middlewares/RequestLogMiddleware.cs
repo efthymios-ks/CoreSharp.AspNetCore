@@ -1,4 +1,5 @@
-﻿using CoreSharp.Extensions;
+﻿using CoreSharp.AspNetCore.Middlewares.Abstracts;
+using CoreSharp.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -6,29 +7,25 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace CoreSharp.Models.Middlewares
+namespace CoreSharp.AspNetCore.Middlewares
 {
-    public class RequestLogMiddleware
+    public class RequestLogMiddleware : HttpMiddlewareBase
     {
         //Fields 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private readonly RequestDelegate _next;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly ILogger _logger;
 
         //Constructors
         public RequestLogMiddleware(RequestDelegate next, ILogger<RequestLogMiddleware> logger)
-        {
-            _next = next;
-            _logger = logger;
-        }
+            : base(next)
+            => _logger = logger;
 
         //Methods 
-        public async Task InvokeAsync(HttpContext context)
+        public override async Task InvokeAsync(HttpContext context)
         {
             //Run pipeline
             var stopwatch = Stopwatch.StartNew();
-            await _next(context);
+            await Next(context);
             stopwatch.Stop();
 
             //Log entry 
