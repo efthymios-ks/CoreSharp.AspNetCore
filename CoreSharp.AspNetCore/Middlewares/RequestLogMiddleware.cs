@@ -1,5 +1,6 @@
 ﻿using CoreSharp.AspNetCore.Middlewares.Abstracts;
 using CoreSharp.Extensions;
+using CoreSharp.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,15 +24,23 @@ namespace CoreSharp.AspNetCore.Middlewares
         //Methods 
         public override async Task InvokeAsync(HttpContext context)
         {
-            //Run pipeline
             var stopwatch = Stopwatch.StartNew();
-            await Next(context);
-            stopwatch.Stop();
-
-            //Log entry 
-            var duration = stopwatch.Elapsed;
-            var message = GetRequestLogEntry(context, duration);
-            _logger.LogInformation(message);
+            try
+            {
+                await Next(context);
+            }
+            catch (Exception exception)
+            {
+                context.Response.StatusCode = (int)HttpStatusCodeX.FromException(exception);
+                throw;
+            }
+            finally
+            {
+                stopwatch.Stop();
+                var duration = stopwatch.Elapsed;
+                var message = GetRequestLogEntry(context, duration);
+                _logger.LogInformation(message);
+            }
         }
 
         private static string GetRequestLogEntry(HttpContext context, TimeSpan duration)

@@ -14,7 +14,7 @@
 		<PackageId>CoreSharp.AspNetCore</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageReleaseNotes>-Packages update.</PackageReleaseNotes>
+		<PackageReleaseNotes>-Middleware, RequestLogMiddleware, Fixed not logging when exception is thrown.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
