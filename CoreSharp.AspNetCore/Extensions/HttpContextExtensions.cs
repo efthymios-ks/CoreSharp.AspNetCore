@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using CoreSharp.Models.Pages;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System;
 
@@ -27,5 +28,9 @@ namespace CoreSharp.AspNetCore.Extensions
             httpContext.Features.Set<IExceptionHandlerFeature>(feature);
             httpContext.Features.Set<IExceptionHandlerPathFeature>(feature);
         }
+
+        /// <inheritdoc cref="HttpRequestExtensions.GetLinkedPage{TEntity}(HttpRequest, Page{TEntity})"/>
+        public static LinkedPage<TEntity> GetLinkedPage<TEntity>(this HttpContext httpContext, Page<TEntity> page)
+            => httpContext?.Request.GetLinkedPage(page);
     }
 }
