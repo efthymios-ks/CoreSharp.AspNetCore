@@ -18,7 +18,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>5.0.5</Version>
+		<Version>5.0.6</Version>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package references">

@@ -9,7 +9,7 @@ namespace CoreSharp.AspNetCore.Extensions
     /// <summary>
     /// <see cref="HttpRequest"/> extensions.
     /// </summary>
-    internal static class HttpRequestExtensions
+    public static class HttpRequestExtensions
     {
         /// <summary>
         /// Build new <see cref="LinkedPage{TEntity}"/>
