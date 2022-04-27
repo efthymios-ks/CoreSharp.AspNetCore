@@ -29,7 +29,7 @@
 
 	<ItemGroup Label="Assets">
 		<None Include="..\.editorconfig" Link=".editorconfig" />
-		<None Include="..\icon.png">
+		<None Include="..\..\icon.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
