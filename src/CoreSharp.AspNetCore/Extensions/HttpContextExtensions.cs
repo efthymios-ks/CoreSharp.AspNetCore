@@ -18,7 +18,6 @@ namespace CoreSharp.AspNetCore.Extensions
         public static void SetExceptionHandlerFeature(this HttpContext httpContext, Exception exception)
         {
             _ = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
-            _ = exception ?? throw new ArgumentNullException(nameof(exception));
 
             var feature = new ExceptionHandlerFeature
             {
