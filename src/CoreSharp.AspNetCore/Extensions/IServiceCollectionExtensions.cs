@@ -34,7 +34,7 @@ namespace CoreSharp.AspNetCore.Extensions
         /// {
         ///   "Cors": {
         ///     //Allow all
-        ///     "AllowedOrigins": [ * ],
+        ///     "AllowedOrigins": [ "*" ],
         ///
         ///     //No further configuration
         ///     "AllowedMethods": []
@@ -54,7 +54,7 @@ namespace CoreSharp.AspNetCore.Extensions
             _ = configurationSection ?? throw new ArgumentNullException(nameof(configurationSection));
 
             if (!configurationSection.Exists())
-                throw new KeyNotFoundException("No `Cors` configuration found.");
+                throw new KeyNotFoundException("No `Cors` configuration section found.");
 
             IEnumerable<string> GetConfigurationValue(string key)
                 => configurationSection.GetSection(key)

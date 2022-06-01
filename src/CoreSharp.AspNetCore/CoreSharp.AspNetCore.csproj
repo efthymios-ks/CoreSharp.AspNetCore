@@ -14,11 +14,11 @@
 		<PackageId>CoreSharp.AspNetCore</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageReleaseNotes>-Extensions, IServiceCollection, Added `AddCors()` methods.</PackageReleaseNotes>
+		<PackageReleaseNotes>-Extensions, IServiceCollection, Fixed `AddCors()` documentation.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>5.1.0</Version>
+		<Version>5.1.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package references">
