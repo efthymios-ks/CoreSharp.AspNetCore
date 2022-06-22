@@ -42,7 +42,7 @@ namespace CoreSharp.AspNetCore.Extensions
         ///     //Specific values
         ///     "AllowedHeaders": [ "get", "post", "put", "patch", "delete", "head", "trace", "options" ],
         ///
-        ///     //Optional, can be completed removed
+        ///     //Optional, can be completely removed
         ///     "ExposedHeaders": [ "Content-Disposition" ]
         ///   }
         /// }
@@ -59,8 +59,9 @@ namespace CoreSharp.AspNetCore.Extensions
             IEnumerable<string> GetConfigurationValue(string key)
                 => configurationSection.GetSection(key)
                                        .Get<IEnumerable<string>>()
-                                       .Where(v => !string.IsNullOrWhiteSpace(v))
-                                       .Select(v => v.Trim());
+                                       ?.Where(v => !string.IsNullOrWhiteSpace(v))
+                                       .Select(v => v.Trim())
+                                       ?? Enumerable.Empty<string>();
 
             static bool AllowAny(IEnumerable<string> values)
                 => values?.Any(v => v == "*") is true;
