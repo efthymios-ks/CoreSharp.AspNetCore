@@ -1,8 +1,8 @@
 ﻿using CoreSharp.AspNetCore.Extensions;
 using CoreSharp.AspNetCore.Middlewares.Abstracts;
+using CoreSharp.AspNetCore.Utilities;
 using CoreSharp.Constants;
 using CoreSharp.Extensions;
-using CoreSharp.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

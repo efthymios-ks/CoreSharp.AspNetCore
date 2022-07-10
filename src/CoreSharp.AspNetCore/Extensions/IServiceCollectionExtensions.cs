@@ -72,12 +72,13 @@ public static class IServiceCollectionExtensions
                             .Select(o => o.TrimEnd('/'))
                             .ToArray();
 
-            if (origins.Length == 0)
-                return;
-            else if (AllowAny(origins))
-                policy.AllowAnyOrigin();
-            else
-                policy.WithOrigins(origins);
+            if (origins.Length > 0)
+            {
+                if (AllowAny(origins))
+                    policy.AllowAnyOrigin();
+                else
+                    policy.WithOrigins(origins);
+            }
         }
 
         void ConfigureMethods(CorsPolicyBuilder policy)
@@ -115,7 +116,7 @@ public static class IServiceCollectionExtensions
             }
 
             if (Array.Find(methods, m => !IsValidHttpMethod(m)) is string invalidMethod)
-                throw new ArgumentOutOfRangeException(null, $"Invalid entry at `Cors:AllowedMethods` ({invalidMethod}).");
+                throw new ArgumentOutOfRangeException($"Invalid entry at `Cors:AllowedMethods` ({invalidMethod}).");
 
             policy.WithMethods(methods);
         }
@@ -125,12 +126,13 @@ public static class IServiceCollectionExtensions
             var headers = GetConfigurationValue("AllowedHeaders")
                             .ToArray();
 
-            if (headers.Length == 0)
-                return;
-            else if (AllowAny(headers))
-                policy.AllowAnyHeader();
-            else
-                policy.WithHeaders(headers);
+            if (headers.Length > 0)
+            {
+                if (AllowAny(headers))
+                    policy.AllowAnyHeader();
+                else
+                    policy.WithHeaders(headers);
+            }
         }
 
         void ConfigureExposedHeaders(CorsPolicyBuilder policy)

@@ -1,5 +1,6 @@
 ﻿using CoreSharp.AspNetCore.Exceptions;
 using CoreSharp.AspNetCore.Extensions;
+using CoreSharp.Utilities;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using System;
 using System.Net;
 using System.Text.RegularExpressions;
 
-namespace CoreSharp.Utilities;
+namespace CoreSharp.AspNetCore.Utilities;
 
 /// <summary>
 /// <see cref="ProblemDetails"/> utilities.
@@ -30,7 +31,7 @@ public static class ProblemDetailsX
 
         //Get exception
         var exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-        _ = exception ?? throw new NullReferenceException($"Provided {nameof(HttpContext)} does not feature any {nameof(Exception)}.");
+        _ = exception ?? throw new ArgumentException($"Provided {nameof(HttpContext)} does not feature any {nameof(Exception)}.");
 
         //If ProblemDetailsException
         if (exception is ProblemDetailsException pde)
@@ -38,7 +39,7 @@ public static class ProblemDetailsX
 
         //Else extract information
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        var isProduction = string.Equals(environment, "Production", StringComparison.InvariantCultureIgnoreCase);
+        var isProduction = string.Equals(environment, "Production", StringComparison.OrdinalIgnoreCase);
 
         var type = exception.GetType().Name;
         string title = null;

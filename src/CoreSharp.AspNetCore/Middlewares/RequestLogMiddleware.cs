@@ -22,23 +22,23 @@ public class RequestLogMiddleware : HttpMiddlewareBase
         => _logger = logger;
 
     //Methods 
-    public override async Task InvokeAsync(HttpContext context)
+    public override async Task InvokeAsync(HttpContext httpContext)
     {
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            await Next(context);
+            await Next(httpContext);
         }
         catch (Exception exception)
         {
-            context.Response.StatusCode = (int)HttpStatusCodeX.FromException(exception);
+            httpContext.Response.StatusCode = (int)HttpStatusCodeX.FromException(exception);
             throw;
         }
         finally
         {
             stopwatch.Stop();
             var duration = stopwatch.Elapsed;
-            var message = GetRequestLogEntry(context, duration);
+            var message = GetRequestLogEntry(httpContext, duration);
             _logger.LogInformation(message);
         }
     }

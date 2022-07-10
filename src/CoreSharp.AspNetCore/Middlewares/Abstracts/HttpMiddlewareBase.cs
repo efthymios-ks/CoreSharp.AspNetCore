@@ -15,5 +15,5 @@ public abstract class HttpMiddlewareBase
     public RequestDelegate Next { get; }
 
     //Methods
-    public abstract Task InvokeAsync(HttpContext context);
+    public abstract Task InvokeAsync(HttpContext httpContext);
 }
