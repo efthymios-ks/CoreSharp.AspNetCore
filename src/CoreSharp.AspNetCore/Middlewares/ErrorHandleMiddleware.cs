@@ -14,13 +14,13 @@ namespace CoreSharp.AspNetCore.Middlewares;
 
 public class ErrorHandleMiddleware : HttpMiddlewareBase
 {
-    //Constructors
+    // Constructors
     public ErrorHandleMiddleware(RequestDelegate next)
         : base(next)
     {
     }
 
-    //Methods
+    // Methods
     public override async Task InvokeAsync(HttpContext httpContext)
     {
         try

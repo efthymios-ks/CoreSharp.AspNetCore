@@ -33,16 +33,16 @@ public static class IServiceCollectionExtensions
     /// // Sample `appsettings.json`
     /// {
     ///   "Cors": {
-    ///     //Allow all
+    ///     // Allow all
     ///     "AllowedOrigins": [ "*" ],
     ///
-    ///     //No further configuration
+    ///     // No further configuration
     ///     "AllowedMethods": []
     ///
-    ///     //Specific values
+    ///     // Specific values
     ///     "AllowedHeaders": [ "get", "post", "put", "patch", "delete", "head", "trace", "options" ],
     ///
-    ///     //Optional, can be completely removed
+    ///     // Optional, can be completely removed
     ///     "ExposedHeaders": [ "Content-Disposition" ]
     ///   }
     /// }
@@ -97,7 +97,7 @@ public static class IServiceCollectionExtensions
                 return;
             }
 
-            //Validate arguments 
+            // Validate arguments 
             static bool IsValidHttpMethod(string method)
             {
                 var validMethods = new Func<string, bool>[]

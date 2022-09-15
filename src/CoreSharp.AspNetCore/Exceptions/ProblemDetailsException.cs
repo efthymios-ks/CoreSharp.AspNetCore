@@ -8,7 +8,7 @@ namespace CoreSharp.AspNetCore.Exceptions;
 
 public class ProblemDetailsException : Exception
 {
-    //Constructors
+    // Constructors
     public ProblemDetailsException(HttpStatusCode httpStatusCode)
         : this(ProblemDetailsX.Create(httpStatusCode))
         => ProblemDetails = null;
@@ -27,6 +27,6 @@ public class ProblemDetailsException : Exception
         : base($"{problemDetails?.Type} > {problemDetails?.Title}")
         => ProblemDetails = problemDetails ?? throw new ArgumentNullException(nameof(problemDetails));
 
-    //Properties
+    // Properties
     public ProblemDetails ProblemDetails { get; }
 }

@@ -29,15 +29,15 @@ public static class ProblemDetailsX
     {
         _ = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
 
-        //Get exception
+        // Get exception
         var exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
         _ = exception ?? throw new ArgumentException($"Provided {nameof(HttpContext)} does not feature any {nameof(Exception)}.");
 
-        //If ProblemDetailsException
+        // If ProblemDetailsException
         if (exception is ProblemDetailsException pde)
             return pde.ProblemDetails;
 
-        //Else extract information
+        // Else extract information
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var isProduction = string.Equals(environment, "Production", StringComparison.OrdinalIgnoreCase);
 

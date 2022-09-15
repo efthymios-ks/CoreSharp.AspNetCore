@@ -12,16 +12,16 @@ namespace CoreSharp.AspNetCore.Middlewares;
 
 public class RequestLogMiddleware : HttpMiddlewareBase
 {
-    //Fields 
+    // Fields 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private readonly ILogger _logger;
 
-    //Constructors
+    // Constructors
     public RequestLogMiddleware(RequestDelegate next, ILogger<RequestLogMiddleware> logger)
         : base(next)
         => _logger = logger;
 
-    //Methods 
+    // Methods 
     public override async Task InvokeAsync(HttpContext httpContext)
     {
         var stopwatch = Stopwatch.StartNew();
@@ -50,13 +50,13 @@ public class RequestLogMiddleware : HttpMiddlewareBase
         var request = context.Request;
         var response = context.Response;
 
-        //Format values 
+        // Format values 
         var requestPath = $"{request.Host}{request.Path}";
         var statusAsString = $"{response.StatusCode} {(HttpStatusCode)response.StatusCode}";
         var responseSizeAsString = ((ulong?)response.ContentLength)?.ToComputerSizeCI();
         var durationAsString = duration.ToStringReadable();
 
-        //Build and return 
+        // Build and return 
         return $"[{DateTime.UtcNow:u}] {request.Method} > {requestPath} > {statusAsString} > {responseSizeAsString} in {durationAsString}";
     }
 }

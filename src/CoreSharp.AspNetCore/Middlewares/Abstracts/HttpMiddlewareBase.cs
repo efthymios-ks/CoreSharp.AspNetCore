@@ -7,13 +7,13 @@ namespace CoreSharp.AspNetCore.Middlewares.Abstracts;
 /// <inheritdoc cref="IMiddleware" />
 public abstract class HttpMiddlewareBase
 {
-    //Constructors
+    // Constructors
     protected HttpMiddlewareBase(RequestDelegate next)
         => Next = next ?? throw new ArgumentNullException(nameof(next));
 
-    //Properties
+    // Properties
     public RequestDelegate Next { get; }
 
-    //Methods
+    // Methods
     public abstract Task InvokeAsync(HttpContext httpContext);
 }
