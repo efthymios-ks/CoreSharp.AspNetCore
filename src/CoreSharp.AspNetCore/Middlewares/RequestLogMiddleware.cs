@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreSharp.AspNetCore.Middlewares;
 
-public class RequestLogMiddleware : HttpMiddlewareBase
+public sealed class RequestLogMiddleware : HttpMiddlewareBase
 {
     // Fields 
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]

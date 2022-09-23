@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -39,7 +40,7 @@ public static class ProblemDetailsX
 
         // Else extract information
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        var isProduction = string.Equals(environment, "Production", StringComparison.OrdinalIgnoreCase);
+        var isProduction = string.Equals(environment, Environments.Production, StringComparison.OrdinalIgnoreCase);
 
         var type = exception.GetType().Name;
         string title = null;

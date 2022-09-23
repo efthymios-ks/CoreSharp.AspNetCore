@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CoreSharp.AspNetCore.Middlewares;
 
-public class ErrorHandleMiddleware : HttpMiddlewareBase
+public sealed class ErrorHandleMiddleware : HttpMiddlewareBase
 {
     // Constructors
     public ErrorHandleMiddleware(RequestDelegate next)

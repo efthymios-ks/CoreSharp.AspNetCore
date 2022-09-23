@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CoreSharp.AspNetCore.ActionFilters;
 
-public class DuplicateRequestGuardByBodyAttribute : DuplicateRequestGuardBaseAttribute
+public sealed class DuplicateRequestGuardByBodyAttribute : DuplicateRequestGuardBaseAttribute
 {
     // Properties
     /// <summary>

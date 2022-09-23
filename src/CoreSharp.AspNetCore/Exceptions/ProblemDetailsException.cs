@@ -6,7 +6,7 @@ using System.Net;
 
 namespace CoreSharp.AspNetCore.Exceptions;
 
-public class ProblemDetailsException : Exception
+public sealed class ProblemDetailsException : Exception
 {
     // Constructors
     public ProblemDetailsException(HttpStatusCode httpStatusCode)
