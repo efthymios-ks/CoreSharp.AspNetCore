@@ -235,11 +235,13 @@ dotnet_diagnostic.RCS1123.severity = none
 dotnet_diagnostic.RCS1194.severity = none
 dotnet_diagnostic.RCS1235.severity = none
 dotnet_diagnostic.RCS1235.severity = none
+dotnet_diagnostic.S112.severity = none
 dotnet_diagnostic.S125.severity = none
 dotnet_diagnostic.S2368.severity = none
 dotnet_diagnostic.S3011.severity = none
 dotnet_diagnostic.S3433.severity = none
 dotnet_diagnostic.S3925.severity = none
+dotnet_diagnostic.SYSLIB1045.severity = none
 
 # Default severity level for analyzers
 dotnet_analyzer_diagnostic.severity = warning
