@@ -34,7 +34,6 @@ public sealed class DuplicateRequestGuardByBodyAttribute : DuplicateRequestGuard
     /// Convert <see cref="HttpRequest.Body"/> to <see cref="JsonDocument"/>.
     /// </summary>
     [SuppressMessage("Usage", "CA2201:Do not raise reserved exception types", Justification = "<Pending>")]
-    [SuppressMessage("Major Code Smell", "S112:General exceptions should never be thrown", Justification = "<Pending>")]
     private JsonDocument GetArgumentAsJsonDocument(ActionExecutingContext context)
     {
         var arguments = context.ActionArguments.Values;

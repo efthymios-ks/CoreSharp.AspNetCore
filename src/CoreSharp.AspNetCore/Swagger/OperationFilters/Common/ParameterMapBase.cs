@@ -1,27 +1,35 @@
-﻿using Microsoft.OpenApi.Any;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CoreSharp.AspNetCore.Swagger.OperationFilters.Common;
 
 /// <summary>
 /// Use to map user request parameters to Swagger lists and vice-versa.<br/>
-/// 1. Create custom parameter filter(s).
+/// 1. Create custom parameter filter(s).<br/>
+/// You may use <see cref="PipelineFunctions"/> for convenience.
 /// <code>
-/// public sealed class CultureParameterMapOperationFilter : ParameterMapOperationFilter
+/// public sealed class CultureParameterMapOperationFilter : ParameterMapBase
 /// {
 ///     // Properties  
 ///     protected override string ParameterName { get; } = &quot;Culture&quot;;
 /// 
 ///     protected override ParameterLocation ParameterLocation { get; } = ParameterLocation.Header;
 /// 
-///     protected override IEnumerable&lt;string&gt; Source { get; }
+///     protected override IEnumerable&lt;string&gt; ParameterSource { get; }
 ///         = new[] { &quot;en&quot;, &quot;el&quot;, &quot;bg&quot; }
 ///             .Select(cultureName =&gt; CultureInfo.GetCultureInfo(cultureName).DisplayName);
 /// 
 ///     // Methods 
+///     protected override bool ShouldApply(OpenApiOperation operation, OperationFilterContext context)
+///         => context.ApiDescription.HttpMethod == HttpMethods.Get;
+///        
 ///     protected override void OnPipelineProcess(HttpContext httpContext)
 ///     {
 ///         var headers = httpContext.Request.Headers;
@@ -56,26 +64,44 @@ namespace CoreSharp.AspNetCore.Swagger.OperationFilters.Common;
 /// <code>
 /// </code>
 /// </summary>
-public abstract class ParameterMapOperationFilter : ParameterMapOperationFilterBase, IOperationFilter
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
+public abstract partial class ParameterMapBase : IOperationFilter
 {
+    // Fields 
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private static readonly IDictionary<string, Action<HttpRequest>> _pipelineCallbacks
+        = new Dictionary<string, Action<HttpRequest>>();
+
     // Constructors 
-    public ParameterMapOperationFilter()
-        => RegisterCurrentPipelineHandler();
+    public ParameterMapBase()
+        => AddMeToPipeline();
 
     // Properties
+    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+    private string DebuggerDisplay
+        => ToString();
     protected abstract string ParameterName { get; }
     protected abstract ParameterLocation ParameterLocation { get; }
-    protected abstract IEnumerable<string> Source { get; }
+    protected abstract IEnumerable<string> ParameterSource { get; }
 
     protected virtual bool AllowEmptyValues { get; }
-    protected virtual string DefaultParameterKey { get; }
+    protected virtual string DefaultValueKey { get; }
 
     // Methods 
+    public override string ToString()
+        => $"Location: {ParameterLocation}, Name: {ParameterName}";
+
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
+        if (!ShouldApply(operation, context))
+            return;
+
         operation.Parameters ??= new List<OpenApiParameter>();
         operation.Parameters.Add(CreateOpenApiParameter());
     }
+
+    protected virtual bool ShouldApply(OpenApiOperation operation, OperationFilterContext context)
+        => true;
 
     private OpenApiParameter CreateOpenApiParameter()
         => new()
@@ -83,26 +109,39 @@ public abstract class ParameterMapOperationFilter : ParameterMapOperationFilterB
             Name = ParameterName,
             AllowEmptyValue = AllowEmptyValues,
             In = ParameterLocation,
-            Example = GetDefaultParameter(),
+            Example = GetDefaultValue(),
             Schema = new()
             {
                 Enum = GetParameterEnums()
             }
         };
 
-    private IOpenApiAny GetDefaultParameter()
+    private IOpenApiAny GetDefaultValue()
     {
-        if (string.IsNullOrWhiteSpace(DefaultParameterKey))
+        if (string.IsNullOrWhiteSpace(DefaultValueKey))
             return null;
 
-        if (Source?.Contains(DefaultParameterKey) is not true)
+        if (ParameterSource?.Contains(DefaultValueKey) is not true)
             return null;
 
-        return new OpenApiString(DefaultParameterKey);
+        return new OpenApiString(DefaultValueKey);
     }
 
     private IList<IOpenApiAny> GetParameterEnums()
-        => (Source ?? Enumerable.Empty<string>())
+        => (ParameterSource ?? Enumerable.Empty<string>())
             .Select(key => new OpenApiString(key))
             .ToList<IOpenApiAny>();
+
+    private void AddMeToPipeline()
+        => _pipelineCallbacks[GetType().FullName] = OnPipelineProcess;
+
+    internal static Task ProcessPipelineAsync(HttpRequest httpRequest)
+    {
+        foreach (var pipelineHandle in _pipelineCallbacks.Values)
+            pipelineHandle(httpRequest);
+
+        return Task.CompletedTask;
+    }
+
+    protected abstract void OnPipelineProcess(HttpRequest httpRequest);
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CoreSharp.AspNetCore.Swagger.Middlewares;
 
-/// <inheritdoc cref="ParameterMapOperationFilter" />
+/// <inheritdoc cref="ParameterMapBase" />
 public sealed class ParameterMapMiddleware
 {
     // Fields
@@ -17,7 +17,7 @@ public sealed class ParameterMapMiddleware
     // Methods
     public async Task InvokeAsync(HttpContext httpContext)
     {
-        await ParameterMapOperationFilterBase.ProcessAsync(httpContext);
+        await ParameterMapBase.ProcessPipelineAsync(httpContext.Request);
         await _requestDelegate(httpContext);
     }
 }
