@@ -50,11 +50,11 @@ public sealed class DuplicateRequestGuardByBodyAttribute : DuplicateRequestGuard
 
     private string GetPropertyValue(JsonDocument jsonDocument)
     {
-        static bool NamesMatch(string left, string right)
-            => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
-
         var properties = jsonDocument.RootElement.EnumerateObject();
         var property = properties.FirstOrDefault(p => NamesMatch(p.Name, PropertyName));
         return property.Value.GetString();
+
+        static bool NamesMatch(string left, string right)
+            => string.Equals(left, right, StringComparison.OrdinalIgnoreCase);
     }
 }

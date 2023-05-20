@@ -45,7 +45,7 @@ public sealed class RequestLogMiddleware : HttpMiddlewareBase
 
     private static string GetRequestLogEntry(HttpContext context, TimeSpan duration)
     {
-        _ = context ?? throw new ArgumentNullException(nameof(context));
+        ArgumentNullException.ThrowIfNull(context);
 
         var request = context.Request;
         var response = context.Response;

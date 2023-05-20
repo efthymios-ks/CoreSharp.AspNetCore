@@ -17,7 +17,7 @@ public static class HttpContextExtensions
     /// </summary>
     public static void SetExceptionHandlerFeature(this HttpContext httpContext, Exception exception)
     {
-        _ = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
+        ArgumentNullException.ThrowIfNull(httpContext);
 
         var feature = new ExceptionHandlerFeature
         {

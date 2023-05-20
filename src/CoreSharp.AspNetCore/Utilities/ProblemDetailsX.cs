@@ -28,7 +28,7 @@ public static class ProblemDetailsX
     /// <inheritdoc cref="Create(string, string, HttpStatusCode, string, string)"/>
     public static ProblemDetails Create(HttpContext httpContext)
     {
-        _ = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
+        ArgumentNullException.ThrowIfNull(httpContext);
 
         // Get exception
         var exception = httpContext.Features.Get<IExceptionHandlerFeature>()?.Error;

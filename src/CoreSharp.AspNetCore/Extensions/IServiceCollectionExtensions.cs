@@ -50,23 +50,17 @@ public static class IServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddCors(this IServiceCollection services, string policyKey, IConfigurationSection configurationSection)
     {
-        _ = services ?? throw new ArgumentNullException(nameof(services));
-        _ = configurationSection ?? throw new ArgumentNullException(nameof(configurationSection));
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configurationSection);
 
         if (!configurationSection.Exists())
         {
             throw new KeyNotFoundException("No `Cors` configuration section found.");
         }
 
-        IEnumerable<string> GetConfigurationValue(string key)
-            => configurationSection.GetSection(key)
-                                   .Get<IEnumerable<string>>()
-                                   ?.Where(v => !string.IsNullOrWhiteSpace(v))
-                                   .Select(v => v.Trim())
-                                   ?? Enumerable.Empty<string>();
+        services.AddCors(ConfigureCorsOptions);
 
-        static bool AllowAny(IEnumerable<string> values)
-            => values?.Any(v => v == "*") is true;
+        return services;
 
         void ConfigureOrigins(CorsPolicyBuilder policy)
         {
@@ -178,8 +172,14 @@ public static class IServiceCollectionExtensions
             }
         }
 
-        services.AddCors(ConfigureCorsOptions);
+        IEnumerable<string> GetConfigurationValue(string key)
+            => configurationSection.GetSection(key)
+                                   .Get<IEnumerable<string>>()
+                                   ?.Where(v => !string.IsNullOrWhiteSpace(v))
+                                   .Select(v => v.Trim())
+                                   ?? Enumerable.Empty<string>();
 
-        return services;
+        static bool AllowAny(IEnumerable<string> values)
+            => values?.Any(v => v == "*") is true;
     }
 }

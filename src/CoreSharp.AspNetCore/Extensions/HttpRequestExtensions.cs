@@ -17,8 +17,8 @@ public static class HttpRequestExtensions
     /// </summary>
     public static LinkedPage<TEntity> GetLinkedPage<TEntity>(this HttpRequest httpRequest, Page<TEntity> page)
     {
-        _ = httpRequest ?? throw new ArgumentNullException(nameof(httpRequest));
-        _ = page ?? throw new ArgumentNullException(nameof(page));
+        ArgumentNullException.ThrowIfNull(httpRequest);
+        ArgumentNullException.ThrowIfNull(page);
 
         if (httpRequest.Method != HttpMethods.Get)
         {

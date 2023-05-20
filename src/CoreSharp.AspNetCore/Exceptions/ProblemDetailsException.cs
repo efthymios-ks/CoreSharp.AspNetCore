@@ -25,7 +25,11 @@ public sealed class ProblemDetailsException : Exception
 
     public ProblemDetailsException(ProblemDetails problemDetails)
         : base($"{problemDetails?.Type} > {problemDetails?.Title}")
-        => ProblemDetails = problemDetails ?? throw new ArgumentNullException(nameof(problemDetails));
+    {
+        ArgumentNullException.ThrowIfNull(problemDetails);
+
+        ProblemDetails = problemDetails;
+    }
 
     // Properties
     public ProblemDetails ProblemDetails { get; }
