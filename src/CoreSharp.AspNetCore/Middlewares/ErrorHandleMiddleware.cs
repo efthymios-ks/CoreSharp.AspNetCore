@@ -48,7 +48,9 @@ public sealed class ErrorHandleMiddleware : HttpMiddlewareBase
         _ = httpResponse ?? throw new ArgumentNullException(nameof(httpResponse));
 
         if (httpResponse.HasStarted)
+        {
             return;
+        }
 
         var jsonSerializerOptions = new JsonSerializerOptions
         {

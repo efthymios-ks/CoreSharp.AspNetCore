@@ -36,7 +36,9 @@ public static class ProblemDetailsX
 
         // If ProblemDetailsException
         if (exception is ProblemDetailsException pde)
+        {
             return pde.ProblemDetails;
+        }
 
         // Else extract information
         var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -71,9 +73,14 @@ public static class ProblemDetailsX
     public static ProblemDetails Create(string type, string title, HttpStatusCode httpStatusCode, string detail = null, string instance = null)
     {
         if (string.IsNullOrWhiteSpace(type))
+        {
             type = HttpStatusCodeX.GetReferenceUrl(httpStatusCode);
+        }
+
         if (string.IsNullOrWhiteSpace(title))
+        {
             title = ReasonPhrases.GetReasonPhrase((int)httpStatusCode);
+        }
 
         return new()
         {

@@ -54,7 +54,9 @@ public static class IServiceCollectionExtensions
         _ = configurationSection ?? throw new ArgumentNullException(nameof(configurationSection));
 
         if (!configurationSection.Exists())
+        {
             throw new KeyNotFoundException("No `Cors` configuration section found.");
+        }
 
         IEnumerable<string> GetConfigurationValue(string key)
             => configurationSection.GetSection(key)
@@ -75,9 +77,13 @@ public static class IServiceCollectionExtensions
             if (origins.Length > 0)
             {
                 if (AllowAny(origins))
+                {
                     policy.AllowAnyOrigin();
+                }
                 else
+                {
                     policy.WithOrigins(origins);
+                }
             }
         }
 
@@ -116,7 +122,9 @@ public static class IServiceCollectionExtensions
             }
 
             if (Array.Find(methods, m => !IsValidHttpMethod(m)) is string invalidMethod)
+            {
                 throw new ArgumentOutOfRangeException($"Invalid entry at `Cors:AllowedMethods` ({invalidMethod}).");
+            }
 
             policy.WithMethods(methods);
         }
@@ -129,9 +137,13 @@ public static class IServiceCollectionExtensions
             if (headers.Length > 0)
             {
                 if (AllowAny(headers))
+                {
                     policy.AllowAnyHeader();
+                }
                 else
+                {
                     policy.WithHeaders(headers);
+                }
             }
         }
 
@@ -141,7 +153,9 @@ public static class IServiceCollectionExtensions
                             .ToArray();
 
             if (headers.Length > 0)
+            {
                 policy.WithExposedHeaders(headers);
+            }
         }
 
         void ConfigureCorsPolicy(CorsPolicyBuilder policy)
@@ -155,9 +169,13 @@ public static class IServiceCollectionExtensions
         void ConfigureCorsOptions(CorsOptions options)
         {
             if (string.IsNullOrWhiteSpace(policyKey))
+            {
                 options.AddDefaultPolicy(ConfigureCorsPolicy);
+            }
             else
+            {
                 options.AddPolicy(policyKey, ConfigureCorsPolicy);
+            }
         }
 
         services.AddCors(ConfigureCorsOptions);

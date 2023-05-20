@@ -14,13 +14,20 @@ public abstract partial class ParameterMapBase
         {
             // Validate 
             if (string.IsNullOrWhiteSpace(fromHeader))
+            {
                 return;
+            }
+
             if (string.IsNullOrWhiteSpace(toHeader))
+            {
                 return;
+            }
 
             // Try get value 
             if (!TryRemoveHeader(httpContext.Request, fromHeader, out var value))
+            {
                 return;
+            }
 
             // Map to new 
             TrySetHeader(httpContext.Request, toHeader, value);
@@ -30,13 +37,20 @@ public abstract partial class ParameterMapBase
         {
             // Validate 
             if (string.IsNullOrWhiteSpace(fromHeader))
+            {
                 return;
+            }
+
             if (string.IsNullOrWhiteSpace(toQuery))
+            {
                 return;
+            }
 
             // Try get value 
             if (!TryRemoveHeader(httpContext.Request, fromHeader, out var value))
+            {
                 return;
+            }
 
             // Map to new 
             TrySetQueryParameter(httpContext.Request, toQuery, value);
@@ -46,13 +60,20 @@ public abstract partial class ParameterMapBase
         {
             // Validate 
             if (string.IsNullOrWhiteSpace(fromQuery))
+            {
                 return;
+            }
+
             if (string.IsNullOrWhiteSpace(toHeader))
+            {
                 return;
+            }
 
             // Try get value 
             if (!TryRemoveQueryParameter(httpContext.Request, fromQuery, out var value))
+            {
                 return;
+            }
 
             // Map to new 
             TrySetHeader(httpContext.Request, toHeader, value);
@@ -62,14 +83,21 @@ public abstract partial class ParameterMapBase
         {
             // Validate 
             if (string.IsNullOrWhiteSpace(fromQuery))
+            {
                 return;
+            }
+
             if (string.IsNullOrWhiteSpace(toQuery))
+            {
                 return;
+            }
 
             var request = httpContext.Request;
             var queryParameters = QueryStringToDictionary(request.QueryString);
             if (!queryParameters.TryRemove(fromQuery, out var value))
+            {
                 return;
+            }
 
             queryParameters[toQuery] = value;
             request.QueryString = DictionaryToQueryString(queryParameters);
@@ -91,7 +119,9 @@ public abstract partial class ParameterMapBase
         private static bool TrySetHeader(HttpRequest httpRequest, string headerKey, string value)
         {
             if (string.IsNullOrWhiteSpace(value))
+            {
                 return false;
+            }
 
             httpRequest.Headers[headerKey] = value;
             return true;
@@ -113,7 +143,9 @@ public abstract partial class ParameterMapBase
         private static bool TrySetQueryParameter(HttpRequest httpRequest, string queryParameterKey, string value)
         {
             if (string.IsNullOrWhiteSpace(value))
+            {
                 return false;
+            }
 
             var queryParameters = QueryStringToDictionary(httpRequest.QueryString);
             queryParameters[queryParameterKey] = value;

@@ -94,7 +94,9 @@ public abstract partial class ParameterMapBase : IOperationFilter
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         if (!ShouldApply(operation, context))
+        {
             return;
+        }
 
         operation.Parameters ??= new List<OpenApiParameter>();
         operation.Parameters.Add(CreateOpenApiParameter());
@@ -119,10 +121,14 @@ public abstract partial class ParameterMapBase : IOperationFilter
     private IOpenApiAny GetDefaultValue()
     {
         if (string.IsNullOrWhiteSpace(DefaultValueKey))
+        {
             return null;
+        }
 
         if (ParameterSource?.Contains(DefaultValueKey) is not true)
+        {
             return null;
+        }
 
         return new OpenApiString(DefaultValueKey);
     }
@@ -138,7 +144,9 @@ public abstract partial class ParameterMapBase : IOperationFilter
     internal static Task ProcessPipelineAsync(HttpRequest httpRequest)
     {
         foreach (var pipelineHandle in _pipelineCallbacks.Values)
+        {
             pipelineHandle(httpRequest);
+        }
 
         return Task.CompletedTask;
     }

@@ -34,13 +34,15 @@ public abstract class DuplicateRequestGuardBaseAttribute : Attribute, IAsyncActi
         var httpContext = context.HttpContext;
         var httpRequest = httpContext.Request;
         if (IsIdempotent(httpRequest))
+        {
             return;
+        }
 
         // Check if current unique token exists
         var currentToken = await ExtractUniqueTokenAsync(context);
         if (string.IsNullOrWhiteSpace(currentToken))
         {
-            var message = $"`{nameof(DuplicateRequestGuardBaseAttribute)}.{nameof(DuplicateRequestGuardBaseAttribute.ExtractUniqueTokenAsync)}()` returned empty value. Make sure it returns a unique value.";
+            var message = $"`{nameof(DuplicateRequestGuardBaseAttribute)}.{nameof(ExtractUniqueTokenAsync)}()` returned empty value. Make sure it returns a unique value.";
             await WriteResponseAsync(httpContext, HttpStatusCode.UnprocessableEntity, message);
             return;
         }
@@ -68,7 +70,9 @@ public abstract class DuplicateRequestGuardBaseAttribute : Attribute, IAsyncActi
         var httpContext = context.HttpContext;
         var httpRequest = httpContext.Request;
         if (IsOriginalRequest(httpRequest))
+        {
             ClearUniqueToken(httpRequest);
+        }
 
         await next();
     }

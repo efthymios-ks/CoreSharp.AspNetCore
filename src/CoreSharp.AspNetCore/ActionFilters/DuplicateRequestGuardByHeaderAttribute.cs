@@ -20,7 +20,10 @@ public sealed class DuplicateRequestGuardByHeaderAttribute : DuplicateRequestGua
         var headers = request.Headers;
         string token = null;
         if (headers.TryGetValue(HeaderName, out var values))
+        {
             token = values[0];
+        }
+
         return Task.FromResult(token);
     }
 }

@@ -21,7 +21,9 @@ public static class HttpRequestExtensions
         _ = page ?? throw new ArgumentNullException(nameof(page));
 
         if (httpRequest.Method != HttpMethods.Get)
+        {
             throw new InvalidOperationException($"Pagination only works on {nameof(HttpMethods.Get)} methods (provided {nameof(httpRequest.Method)}).");
+        }
 
         string BuildParameter(int pageNumber)
         {
