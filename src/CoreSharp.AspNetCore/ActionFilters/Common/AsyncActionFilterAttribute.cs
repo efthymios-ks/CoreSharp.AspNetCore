@@ -26,14 +26,25 @@ public abstract class AsyncActionFilterAttribute :
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(next);
 
-        await OnActionExecutingAsync(context);
+        if (!await OnActionExecutingAsync(context))
+        {
+            return;
+        }
+
         var resultContext = await next();
         await OnActionExecutedAsync(context, resultContext);
     }
 
-    protected virtual Task OnActionExecutingAsync(ActionExecutingContext context)
-        => Task.CompletedTask;
+    /// <summary>
+    /// Called asynchronously when entering <see cref="OnActionExecutionAsync"/>.
+    /// If false, will not continue down the action pipeline.
+    /// </summary>
+    protected virtual Task<bool> OnActionExecutingAsync(ActionExecutingContext context)
+        => Task.FromResult(true);
 
+    /// <summary>
+    /// Called asynchronously when exiting <see cref="OnActionExecutionAsync"/>.
+    /// </summary>
     protected virtual Task OnActionExecutedAsync(ActionExecutingContext context, ActionExecutedContext resultContext)
         => Task.CompletedTask;
 
@@ -43,14 +54,25 @@ public abstract class AsyncActionFilterAttribute :
         ArgumentNullException.ThrowIfNull(context);
         ArgumentNullException.ThrowIfNull(next);
 
-        await OnResultExecutingAsync(context);
+        if (!await OnResultExecutingAsync(context))
+        {
+            return;
+        }
+
         var resultContext = await next();
         await OnResultExecutedAsync(context, resultContext);
     }
 
-    protected virtual Task OnResultExecutingAsync(ResultExecutingContext context)
-        => Task.CompletedTask;
+    /// <summary>
+    /// Called asynchronously when entering <see cref="OnResultExecutingAsync"/>.
+    /// If false, will not continue down the action pipeline.
+    /// </summary>
+    protected virtual Task<bool> OnResultExecutingAsync(ResultExecutingContext context)
+        => Task.FromResult(true);
 
+    /// <summary>
+    /// Called asynchronously when exiting <see cref="OnResultExecutingAsync"/>.
+    /// </summary>
     protected virtual Task OnResultExecutedAsync(ResultExecutingContext context, ResultExecutedContext resultContext)
         => Task.CompletedTask;
 }
