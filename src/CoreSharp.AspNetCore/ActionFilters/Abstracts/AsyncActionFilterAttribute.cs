@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace CoreSharp.AspNetCore.ActionFilters.Common;
+namespace CoreSharp.AspNetCore.ActionFilters.Abstracts;
 
 /// <summary>
 /// An abstract filter that asynchronously surrounds execution of the action and the action result. 

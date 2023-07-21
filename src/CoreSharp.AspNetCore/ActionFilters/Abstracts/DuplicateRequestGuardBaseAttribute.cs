@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Mime;
 using System.Threading.Tasks;
 
-namespace CoreSharp.AspNetCore.ActionFilters.Common;
+namespace CoreSharp.AspNetCore.ActionFilters.Abstracts;
 
 /// <summary>
 /// Base class for guard implementation.<br/>

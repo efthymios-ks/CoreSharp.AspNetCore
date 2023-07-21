@@ -1,4 +1,4 @@
-﻿using CoreSharp.AspNetCore.ActionFilters.Common;
+﻿using CoreSharp.AspNetCore.ActionFilters.Abstracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Threading.Tasks;
