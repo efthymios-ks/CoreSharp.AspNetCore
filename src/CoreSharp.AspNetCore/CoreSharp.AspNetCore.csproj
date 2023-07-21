@@ -14,20 +14,20 @@
 		<PackageId>CoreSharp.AspNetCore</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageReleaseNotes>-ActionFilters, AsyncActionFilterAttribute.</PackageReleaseNotes>
+		<PackageReleaseNotes>-chore(solution): restructure folders.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>7.2.2</Version>
+		<Version>7.3.1</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 	<ItemGroup Label="Package references">
-		<PackageReference Include="CoreSharp" Version="7.2.0" PrivateAssets="Compile" />
+		<PackageReference Include="CoreSharp" Version="7.4.0" PrivateAssets="Compile" />
 		<PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.0" PrivateAssets="Compile" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" PrivateAssets="Compile" />
-		<PackageReference Include="Microsoft.OpenApi" Version="1.6.4" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.6.5" />
 		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
 	</ItemGroup>
 
