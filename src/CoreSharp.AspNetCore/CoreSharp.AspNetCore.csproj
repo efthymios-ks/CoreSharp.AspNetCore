@@ -14,11 +14,11 @@
 		<PackageId>CoreSharp.AspNetCore</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageReleaseNotes>-chore(solution): restructure folders.</PackageReleaseNotes>
+		<PackageReleaseNotes>-refactor(middlewares): decoupled RequestLogMiddleware from ILogger.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>7.3.1</Version>
+		<Version>7.4.0</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 

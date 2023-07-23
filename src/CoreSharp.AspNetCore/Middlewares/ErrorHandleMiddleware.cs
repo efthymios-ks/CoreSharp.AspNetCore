@@ -36,8 +36,6 @@ public sealed class ErrorHandleMiddleware : HttpMiddlewareBase
 
     private static async Task HandleExceptionAsync(HttpContext httpContext)
     {
-        ArgumentNullException.ThrowIfNull(httpContext);
-
         var response = httpContext.Response;
         var problemDetails = ProblemDetailsX.Create(httpContext);
         await WriteResponseAsync(response, problemDetails);
@@ -45,8 +43,6 @@ public sealed class ErrorHandleMiddleware : HttpMiddlewareBase
 
     private static async Task WriteResponseAsync(HttpResponse httpResponse, ProblemDetails problemDetails)
     {
-        ArgumentNullException.ThrowIfNull(httpResponse);
-
         if (httpResponse.HasStarted)
         {
             return;
