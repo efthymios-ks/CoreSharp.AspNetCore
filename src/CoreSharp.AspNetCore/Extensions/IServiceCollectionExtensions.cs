@@ -36,11 +36,11 @@ public static class IServiceCollectionExtensions
     ///     // Allow all
     ///     "AllowedOrigins": [ "*" ],
     ///
-    ///     // No further configuration
-    ///     "AllowedMethods": []
-    ///
     ///     // Specific values
-    ///     "AllowedHeaders": [ "get", "post", "put", "patch", "delete", "head", "trace", "options" ],
+    ///     "AllowedMethods": [ "get", "post", "put", "patch", "delete", "head", "trace", "options" ]
+    ///
+    ///     // No further configuration
+    ///     "AllowedHeaders": [ ],
     ///
     ///     // Optional, can be completely removed
     ///     "ExposedHeaders": [ "Content-Disposition" ]
@@ -65,8 +65,8 @@ public static class IServiceCollectionExtensions
         void ConfigureOrigins(CorsPolicyBuilder policy)
         {
             var origins = GetConfigurationValue("AllowedOrigins")
-                            .Select(o => o.TrimEnd('/'))
-                            .ToArray();
+                .Select(o => o.TrimEnd('/'))
+                .ToArray();
 
             if (origins.Length > 0)
             {
@@ -84,8 +84,8 @@ public static class IServiceCollectionExtensions
         void ConfigureMethods(CorsPolicyBuilder policy)
         {
             var methods = GetConfigurationValue("AllowedMethods")
-                            .Select(m => m.ToUpperInvariant())
-                            .ToArray();
+                .Select(m => m.ToUpperInvariant())
+                .ToArray();
 
             if (methods.Length == 0)
             {
@@ -126,7 +126,7 @@ public static class IServiceCollectionExtensions
         void ConfigureHeaders(CorsPolicyBuilder policy)
         {
             var headers = GetConfigurationValue("AllowedHeaders")
-                            .ToArray();
+                .ToArray();
 
             if (headers.Length > 0)
             {
@@ -144,7 +144,7 @@ public static class IServiceCollectionExtensions
         void ConfigureExposedHeaders(CorsPolicyBuilder policy)
         {
             var headers = GetConfigurationValue("ExposedHeaders")
-                            .ToArray();
+                .ToArray();
 
             if (headers.Length > 0)
             {
@@ -173,11 +173,12 @@ public static class IServiceCollectionExtensions
         }
 
         IEnumerable<string> GetConfigurationValue(string key)
-            => configurationSection.GetSection(key)
-                                   .Get<IEnumerable<string>>()
-                                   ?.Where(v => !string.IsNullOrWhiteSpace(v))
-                                   .Select(v => v.Trim())
-                                   ?? Enumerable.Empty<string>();
+            => configurationSection
+                .GetSection(key)
+                .Get<IEnumerable<string>>()
+                ?.Where(value => !string.IsNullOrWhiteSpace(value))
+                .Select(value => value.Trim())
+                ?? Enumerable.Empty<string>();
 
         static bool AllowAny(IEnumerable<string> values)
             => values?.Any(v => v == "*") is true;

@@ -14,11 +14,11 @@
 		<PackageId>CoreSharp.AspNetCore</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl />
-		<PackageReleaseNotes>-refactor(middlewares): decoupled RequestLogMiddleware from ILogger.</PackageReleaseNotes>
+		<PackageReleaseNotes>-chore: Fix documentation in AddCores() extension.</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<Version>7.4.0</Version>
+		<Version>7.4.1</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
